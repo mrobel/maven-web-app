@@ -1,0 +1,55 @@
+---
+- name: docker Host
+  hosts: docker
+  become: true
+  tasks:
+#   - name: Install Git
+#     apt: name=git state=present
+   - name: git clone
+     git:
+      repo: 'https://github.com/mrobel/maven-web-app.git'
+      dest: /home/ansible/javawebapp
+   - name: Build maven
+     command: mvn clean package
+     args:
+       chdir: /home/ansible/javawebapp
+
+#  tasks:
+#   - name: Copy Dockerfile 
+#     copy:
+#       src: /home/ansible/javawebapp/Dockerfile
+#       dest: /home/ansible/javawebapp  
+#   - name: Copy Jar file
+#     copy:
+#       src: /home/ansible/maven-web-app/01-maven-web-app.war
+#       dest: /home/ansible/javawebapp
+
+   - name: Image build
+     command: docker build -t mrobel/javawebapp .
+     args:
+       chdir: /home/ansible/javawebapp
+
+   - name: Login Dockerhub
+     community.docker.docker_login:
+       username: mrobel
+       password: parves1
+
+   - name: Push to Docker hub
+     command: docker push mrobel/javawebapp
+
+   - name: Remove old image
+     command: docker rmi mrobel/javawebapp
+     ignore_errors: yes
+- name: eks Server
+  hosts: eks
+  become: true
+  tasks:
+   - name: Copy deployment file
+     copy:
+       src: /home/ansible/javawebapp/maven-web-app-deploy.yml
+       dest: /home/ansible
+   - name: K8s deployment
+     command: kubectl apply -f maven-web-app-deploy.yml
+     args:
+       chdir: /home/ansible
+...
