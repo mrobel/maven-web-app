@@ -44,12 +44,17 @@
   hosts: eks
   become: true
   tasks:
-   - name: Copy deployment file
-     copy:
-       src: /home/ansible/javawebapp/maven-web-app-deploy.yml
-       dest: /home/ansible
+#   - name: Copy deployment file
+#     copy:
+#       src: /home/ansible/javawebapp/maven-web-app-deploy.yml
+#       dest: /home/ansible
+   - name: git clone
+     git:
+      repo: 'https://github.com/mrobel/maven-web-app.git'
+      dest: /home/ansible/repo
+
    - name: K8s deployment
      command: kubectl apply -f maven-web-app-deploy.yml
      args:
-       chdir: /home/ansible
+       chdir: /home/ansible/repo
 ...
