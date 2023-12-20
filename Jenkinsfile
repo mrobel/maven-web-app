@@ -15,7 +15,7 @@ pipeline {
              label 'Ansible-CN'
            } 
             steps {
-              ansiblePlaybook credentialsId: 'Slave-credential', disableHostKeyChecking: true, installation: 'Ansible-CN', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/play.yml', vaultTmpPath: ''
+             ansiblePlaybook become: true, disableHostKeyChecking: true, installation: 'Ansible-CN', inventory: '/etc/ansible/hosts', playbook: '/home/ansible/play.yml', vaultTmpPath: ''
             }
         }
     }
