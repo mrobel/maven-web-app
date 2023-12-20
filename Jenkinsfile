@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Ansible Playbook') {
            agent {
-             label 'ansible-cn'
+             label 'Ansible-CN'
            } 
             steps {
               sh "ansible-playbook playbook.yml"
