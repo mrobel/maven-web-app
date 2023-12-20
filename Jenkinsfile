@@ -15,7 +15,7 @@ pipeline {
              label 'Ansible-CN'
            } 
             steps {
-              sh "ansible-playbook playbook.yml"
+              sh 'ansible-playbook playbook.yml'
             }
         }
     }
