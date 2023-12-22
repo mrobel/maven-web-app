@@ -20,7 +20,7 @@
 - name: Second Play - K8s Deployment
   hosts: eks
   tasks:
-   - name: 
+   - name: Copy Deployment file
      copy:
        src: k8s-deploy.yml
        dest: /home/ansible
