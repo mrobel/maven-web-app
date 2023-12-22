@@ -16,7 +16,7 @@
       command: docker push mrobel/mavenwebapp
     - name: Remove old image
       command: docker rmi mrobel/mavenwebapp
-     ignore_errors: yes  
+      ignore_errors: yes  
 - name: Second Play - K8s Deployment
   hosts: eks
   tasks:
