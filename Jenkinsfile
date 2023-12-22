@@ -14,13 +14,13 @@ pipeline {
                git 'https://github.com/mrobel/maven-web-app.git'
             }
         }
-        stage('Build') {
+        stage('Build Project') {
             steps {
                sh 'mvn clean package'
             }
         }
         
-        stage('Create Image') {
+        stage('Ansible Playbook for Image & Deployment') {
             steps{
                 sh 'ansible-playbook task.yml'
                 }
