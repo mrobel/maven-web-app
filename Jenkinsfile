@@ -20,7 +20,7 @@ pipeline {
             }
         }
         
-        stage('Ansible Playbook for Image & Deployment') {
+        stage('Ansible Playbook for Image & Deployment in K8s') {
             steps{
                 sh 'ansible-playbook task.yml'
                 }
