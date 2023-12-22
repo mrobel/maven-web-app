@@ -10,12 +10,12 @@
       copy:
        src: target
        dest: /home/ansible
-    - name : Build image
+    - name: Build image
       command: docker build -t mrobel/mavenwebapp .
-    - name : Push Docker Image
+    - name: Push Docker Image
       command: docker push mrobel/mavenwebapp
     - name: Remove old image
-     command: docker rmi mrobel/mavenwebapp
+      command: docker rmi mrobel/mavenwebapp
      ignore_errors: yes  
 - name: Second Play - K8s Deployment
   hosts: eks
@@ -24,6 +24,6 @@
      copy:
        src: k8s-deploy.yml
        dest: /home/ansadmin
-   - name : K8S Deployment
+   - name: K8S Deployment
      command: kubectl apply -f k8s-deploy.yml
 ...     
