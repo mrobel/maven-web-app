@@ -24,6 +24,8 @@
      copy:
        src: k8s-deploy.yml
        dest: /home/ansible
+   - name: Clean Deployment
+     command: kubectl delete all --all    
    - name: K8S Deployment
      command: kubectl apply -f k8s-deploy.yml
 ...     
